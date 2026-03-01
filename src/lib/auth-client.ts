@@ -14,19 +14,22 @@ type SignOutResponse = Awaited<
 >;
 
 // ✅ Sign In
-export const signIn = async (): Promise<SocialSignInResponse> => {
+export const signIn = async (): Promise<void> => {
   try {
-    const data = await authClient.signIn.social({
-      provider: "google",
-    });
-    
-    return data;
+    const data = await authClient.signIn.social({ provider: "google" });
+
+    // Type guard to check if 'url' exists
+    if ("url" in data && typeof data.url === "string") {
+      window.location.href = data.url;
+    } else {
+      console.error("No redirect URL returned from social sign-in:", data);
+      throw new Error("Sign-in failed: no redirect URL.");
+    }
   } catch (error) {
     console.error("Sign-in failed:", error);
     throw error;
   }
 };
-
 // ✅ Sign Out
 export const signOut = async (): Promise<SignOutResponse> => {
   try {

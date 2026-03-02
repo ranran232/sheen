@@ -73,7 +73,7 @@ const FloatingProductCard = () => {
           <p className="text-black font-bold text-sm leading-snug">
             The Essential Piece
           </p>
-          <p className="text-stone-400 text-[11px] leading-snug mt-0.5">
+          <p className="text-stone-700 text-[11px] leading-snug mt-0.5">
             Crafted for everyday luxury
           </p>
         </div>

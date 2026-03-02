@@ -82,7 +82,7 @@ const Nav = () => {
           <div className="flex items-center justify-between h-16">
 
             {/* Mobile - Cart */}
-            <a href="/cart" className="md:hidden relative">
+            <a href="/cart" className="md:hidden relative" aria-label="View Cart mobile">
               {cartLoading ? (
                 <Loader2 className="w-6 h-6 animate-spin text-white" />
               ) : (
@@ -121,7 +121,7 @@ const Nav = () => {
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center space-x-8">
-              <a href="/cart" className="relative">
+              <a href="/cart" className="relative" aria-label="View Cart">
                 {cartLoading ? (
                   <Loader2 className="w-6 h-6 animate-spin text-white" />
                 ) : (

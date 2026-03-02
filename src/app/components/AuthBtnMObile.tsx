@@ -67,18 +67,18 @@ export default function AuthBtnMobile() {
 
   if (!session?.data) {
     return (
-      <a
+      <button
         onClick={signIn}
         className=" py-2 font-bold cursor-pointer hover:bg-gray-100 rounded flex items-center gap-2 text-white"
       >
         Sign in
-      </a>
+      </button>
     );
   }
 
   return (
     <>
-      <a className="flex font-bold items-center justify-between py-2 rounded hover:bg-gray-100">
+      <button className="flex font-bold items-center justify-between py-2 rounded hover:bg-gray-100">
         {/* Logout Trigger */}
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
@@ -123,7 +123,7 @@ export default function AuthBtnMobile() {
             </DialogFooter>
           </DialogContent>
         </Dialog>
-      </a>
+      </button>
     </>
   );
 }

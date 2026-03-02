@@ -70,7 +70,7 @@ export default function AuthButton() {
 
   if (!session?.data) {
     return (
-      <Button onClick={signIn} className="bg-black text-white px-4 py-1 rounded cursor-pointer">
+      <Button onClick={signIn} className="bg-white text-black px-4 py-1 rounded cursor-pointer hover:bg-gray-200">
         Sign in with Google
       </Button>
     );

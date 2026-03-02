@@ -104,17 +104,17 @@ const Nav = () => {
               <div className="hidden md:flex items-center space-x-8">
                 <a href="/products/all" className="text-white font-medium text-sm tracking-wide relative group">
                   All Products
-                  <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-black transition-all duration-300 group-hover:w-full" />
+                  <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-white transition-all duration-300 group-hover:w-full" />
                 </a>
 
                 <a href="/products/women" className="text-white font-medium text-sm tracking-wide relative group">
                   Women
-                  <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-black transition-all duration-300 group-hover:w-full" />
+                  <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-white transition-all duration-300 group-hover:w-full" />
                 </a>
 
                 <a href="/products/men" className="text-white font-medium text-sm tracking-wide relative group">
                   Men
-                  <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-black transition-all duration-300 group-hover:w-full" />
+                  <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-white transition-all duration-300 group-hover:w-full" />
                 </a>
               </div>
             </div>

@@ -88,7 +88,7 @@ export default function AuthButton() {
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <button
-              className="flex items-center cursor-pointer gap-1 text-black py-1 text-sm rounded"
+              className="flex items-center cursor-pointer gap-1 text-white py-1 text-sm rounded"
               disabled={processing}
             >
               Logout  <LogOut size={15}/>

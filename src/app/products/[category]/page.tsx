@@ -3,6 +3,7 @@
 import Category from "@/app/components/Category";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Toaster, toast } from 'sonner';
 
 interface Product {
   _id: string;
@@ -56,10 +57,13 @@ export default function Page() {
   }, [category]);
 
   return (
+   <>
     <Category
       products={products}
       category={category}
       loading={loading}
     />
+    <Toaster position="bottom-right" richColors />
+   </>
   );
 }

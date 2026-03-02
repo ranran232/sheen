@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import useCartStore from '../stores/cartStore'
 import useProductStore from '../stores/productStore'
@@ -10,31 +10,47 @@ const CartPage: React.FC = () => {
   const router = useRouter()
   const { items, removeItem } = useCartStore()
   const { addItems, clearItems } = useProductStore()
+  const { session } = useSessionStore()
+  const userEmail = session?.data?.user?.email
 
-  // assume the user's email is stored in localStorage or session
-  const { session, loading: sessionLoading } = useSessionStore();
-  const userEmail = session?.data?.user?.email;
+  // State for checked items
+  const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({})
 
-  const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>(
-    () => {
-      const initial: Record<string, boolean> = {}
-      items.forEach(item => {
-        initial[item._id] = true
-      })
-      return initial
-    }
-  )
+  // Initialize checkedItems when items change
+  useEffect(() => {
+    const initial: Record<string, boolean> = {}
+    items.forEach(item => {
+      initial[item._id] = true
+    })
+    setCheckedItems(initial)
+  }, [items])
 
+  // Toggle individual item
   const toggleCheck = (id: string) => {
     setCheckedItems(prev => ({ ...prev, [id]: !prev[id] }))
   }
 
+  // Compute total amount
   const totalAmount = useMemo(() => {
     return items
       .filter(item => checkedItems[item._id])
       .reduce((sum, item) => sum + item.price, 0)
   }, [items, checkedItems])
 
+  // Select All logic
+  const allSelected = useMemo(() => {
+    return items.length > 0 && items.every(item => checkedItems[item._id])
+  }, [items, checkedItems])
+
+  const handleSelectAll = () => {
+    const newState: Record<string, boolean> = {}
+    items.forEach(item => {
+      newState[item._id] = !allSelected
+    })
+    setCheckedItems(newState)
+  }
+
+  // Buy Now
   const handleBuyNow = () => {
     const selectedItems = items.filter(item => checkedItems[item._id])
     if (selectedItems.length === 0) return
@@ -44,26 +60,24 @@ const CartPage: React.FC = () => {
     router.push('/payment')
   }
 
+  // Delete item
   const handleDelete = async (id: string) => {
-    if (!userEmail) return;
-
+    if (!userEmail) return
     try {
       const res = await fetch(`/api/cart/${userEmail}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id }), // send _id in body
+        body: JSON.stringify({ id }),
       })
-
-      const data = await res.json()
-
       if (res.ok) {
-        removeItem(id) // update local store
+        removeItem(id)
       }
     } catch (err) {
       console.error(err)
     }
   }
 
+  // Early return if cart empty
   if (!items.length) {
     return (
       <div className="flex justify-center items-center h-screen text-gray-500">
@@ -73,10 +87,20 @@ const CartPage: React.FC = () => {
   }
 
   return (
-   <>
     <div className="min-h-screen bg-gray-100 py-10 px-4 mt-[50px]">
       <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg p-6">
         <h1 className="text-2xl font-bold mb-6">Your Cart</h1>
+
+        {/* Select All */}
+        <div className="flex items-center gap-3 mb-4">
+          <input
+            type="checkbox"
+            checked={allSelected}
+            onChange={handleSelectAll}
+            className="w-4 h-4 accent-blue-600"
+          />
+          <p className="font-medium">Select All</p>
+        </div>
 
         <div className="space-y-4">
           {items.map(item => (
@@ -112,15 +136,13 @@ const CartPage: React.FC = () => {
           <button
             onClick={handleBuyNow}
             disabled={totalAmount === 0}
-            className={`bg-black text-white px-6 py-2 rounded-xl hover:bg-gray-800 transition disabled:bg-gray-400`}
+            className="bg-black text-white px-6 py-2 rounded-xl hover:bg-gray-800 transition disabled:bg-gray-400"
           >
             Buy Now
           </button>
         </div>
       </div>
     </div>
-   </>
-    
   )
 }
 

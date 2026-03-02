@@ -7,6 +7,7 @@ import AuthButton from "./AuthBtn";
 import useCartStore, { CartItem } from "../stores/cartStore";
 import useProductStore from "../stores/productStore";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface Product {
   _id: string;
@@ -81,6 +82,13 @@ const Category: React.FC<Props> = ({ products, category, loading }) => {
         }),
       });
 
+      const data = await res.json();
+         // ✅ If already exists (409)
+    if (data.message === "Item already exists in your cart") {
+      toast.error(data.message); // or toast(data.message)
+      return;
+    }
+
       if (res.ok) {
         // ✅ Add item to global cart store
         const newCartItem: CartItem = {
@@ -97,8 +105,6 @@ const Category: React.FC<Props> = ({ products, category, loading }) => {
         setShowModal(true);
         setTimeout(() => setShowModal(false), 2000);
       }
-
-      await res.json();
     } catch (error) {
       console.error("Failed to add to cart", error);
     } finally {
@@ -107,6 +113,10 @@ const Category: React.FC<Props> = ({ products, category, loading }) => {
   };
 
 const handlePurchase = (name: string, price: number) => {
+  if(!userEmail){
+    setShowSignInModal(true);
+    return;
+  }
   addItems({ name, price })   // ✅ pass object
   router.push("/payment")
 }

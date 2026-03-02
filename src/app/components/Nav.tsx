@@ -74,9 +74,9 @@ const Nav = () => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 shadow-md transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 left-0 right-0 z-50 shadow-md transition-transform duration-300 ease-in-out bg-black ${
           visible ? "translate-y-0" : "-translate-y-full"
-        } ${open ? "bg-white" : "bg-transparent"}`}
+        }`}
       >
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between h-16">
@@ -84,12 +84,12 @@ const Nav = () => {
             {/* Mobile - Cart */}
             <a href="/cart" className="md:hidden relative">
               {cartLoading ? (
-                <Loader2 className="w-6 h-6 animate-spin text-black" />
+                <Loader2 className="w-6 h-6 animate-spin text-white" />
               ) : (
                 <>
-                  <ShoppingCart className="w-6 h-6 cursor-pointer text-black" />
+                  <ShoppingCart className="w-6 h-6 cursor-pointer text-white" />
                   {cart.length > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-black text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
                       {cart.length}
                     </span>
                   )}
@@ -98,21 +98,21 @@ const Nav = () => {
             </a>
 
             {/* Logo */}
-            <div className="text-2xl flex gap-[100px] font-bold cursor-pointer text-black tracking-tight">
+            <div className="text-2xl flex gap-[100px] font-bold cursor-pointer text-white tracking-tight">
               <a href="/">SHEEN</a>
 
               <div className="hidden md:flex items-center space-x-8">
-                <a href="/products/all" className="text-black font-medium text-sm tracking-wide relative group">
+                <a href="/products/all" className="text-white font-medium text-sm tracking-wide relative group">
                   All Products
                   <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-black transition-all duration-300 group-hover:w-full" />
                 </a>
 
-                <a href="/products/women" className="text-black font-medium text-sm tracking-wide relative group">
+                <a href="/products/women" className="text-white font-medium text-sm tracking-wide relative group">
                   Women
                   <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-black transition-all duration-300 group-hover:w-full" />
                 </a>
 
-                <a href="/products/men" className="text-black font-medium text-sm tracking-wide relative group">
+                <a href="/products/men" className="text-white font-medium text-sm tracking-wide relative group">
                   Men
                   <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-black transition-all duration-300 group-hover:w-full" />
                 </a>
@@ -123,12 +123,12 @@ const Nav = () => {
             <div className="hidden md:flex items-center space-x-8">
               <a href="/cart" className="relative">
                 {cartLoading ? (
-                  <Loader2 className="w-6 h-6 animate-spin text-black" />
+                  <Loader2 className="w-6 h-6 animate-spin text-white" />
                 ) : (
                   <>
-                    <ShoppingCart className="cursor-pointer text-black" />
+                    <ShoppingCart className="cursor-pointer text-white" />
                     {cart.length > 0 && (
-                      <span className="absolute -top-2 -right-2 bg-black text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                      <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
                         {cart.length}
                       </span>
                     )}
@@ -144,7 +144,7 @@ const Nav = () => {
               <button
                 onClick={() => setOpen(!open)}
                 aria-label="Toggle menu"
-                className={`p-1 text-black transition-transform duration-300 ease-in-out ${
+                className={`p-1 text-white transition-transform duration-300 ease-in-out ${
                   open ? "rotate-90" : "rotate-0"
                 }`}
               >
@@ -161,13 +161,13 @@ const Nav = () => {
           }`}
         >
           <div className="px-6 py-3 flex flex-col">
-            <a href="/products/all" className="text-black font-medium text-base py-2.5 border-b border-gray-100">
+            <a href="/products/all" className="text-white font-medium text-base py-2.5 border-b border-gray-100">
               All Products
             </a>
-            <a href="/products/women" className="text-black font-medium text-base py-2.5 border-b border-gray-100">
+            <a href="/products/women" className="text-white font-medium text-base py-2.5 border-b border-gray-100">
               Women
             </a>
-            <a href="/products/men" className="text-black font-medium text-base py-2.5 border-b border-gray-100">
+            <a href="/products/men" className="text-white font-medium text-base py-2.5 border-b border-gray-100">
               Men
             </a>
           <AuthBtnMobile />

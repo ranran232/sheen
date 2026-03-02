@@ -69,7 +69,7 @@ export default function AuthBtnMobile() {
     return (
       <a
         onClick={signIn}
-        className=" py-2 font-bold cursor-pointer hover:bg-gray-100 rounded flex items-center gap-2"
+        className=" py-2 font-bold cursor-pointer hover:bg-gray-100 rounded flex items-center gap-2 text-white"
       >
         Sign in
       </a>
@@ -83,7 +83,7 @@ export default function AuthBtnMobile() {
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
   <span
-    className={`flex items-center gap-1 cursor-pointer text-sm text-black ${
+    className={`flex items-center gap-1 cursor-pointer text-sm text-white ${
       processing ? "opacity-50 pointer-events-none" : ""
     }`}
   >

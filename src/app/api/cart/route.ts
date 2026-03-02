@@ -5,7 +5,7 @@ import { connectDB } from "@/app/_lib/db/db";
 // ✅ Cart Schema
 const cartSchema = new Schema(
   {
-    email: { type: String, required: true }, // ✅ added
+    email: { type: String, required: true },
     name: { type: String, required: true },
     price: { type: Number, required: true },
     category: { type: String, required: true },
@@ -14,7 +14,6 @@ const cartSchema = new Schema(
   { timestamps: true }
 );
 
-// collection name: "cart"
 const Carts = models.Carts || model("Carts", cartSchema, "carts");
 
 export async function POST(req: NextRequest) {
@@ -30,6 +29,15 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // ✅ Check if item already exists for THIS user
+    const existingItem = await Carts.findOne({ email, name });
+
+    if (existingItem) {
+      return NextResponse.json(
+        { message: "Item already exists in your cart" }
+      );
+    }
+
     const newCartItem = await Carts.create({
       email,
       name,
@@ -37,6 +45,7 @@ export async function POST(req: NextRequest) {
       category,
       img,
     });
+
     return NextResponse.json(
       {
         message: "Item added to cart successfully",

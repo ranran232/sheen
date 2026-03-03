@@ -15,7 +15,7 @@ const Footer = () => {
         {/* Center: social / contact links */}
         <div className="flex items-center gap-4 text-sm">
           <a
-            href="https://www.linkedin.com/in/randy-olais"
+            href="https://www.linkedin.com/in/randy-olais-261305341/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-stone-600 hover:text-black transition-colors"
